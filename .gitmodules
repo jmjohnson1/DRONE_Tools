@@ -1,0 +1,3 @@
+[submodule "EKF/lib/eigen"]
+	path = EKF/lib/eigen
+	url = https://gitlab.com/libeigen/eigen.git

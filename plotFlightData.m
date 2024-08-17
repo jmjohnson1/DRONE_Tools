@@ -4,7 +4,7 @@ clear; close all;
 %============
 
 % Filenames that contain flight data and motion capture system logs
-quadfile  = "../flightdata/flight_data104.csv";
+quadfile  = "../flightdata/FlightData_8_3_24/flight_data13.csv";
 mocapfile = "";
 
 % You can use this to select a subset of the flight time
@@ -12,18 +12,18 @@ minTime = 0;  % [s]
 maxTime = 10000;  % [s]
 
 % Plot options
-fdColor       = 'b';
-mocapColor    = 'r';
-colors        = ["#32a852"
-	               "#3262a8"
-	               "#a83248"
-	               "#a88132"];
-lw            = 1;
+fdColor    = 'b';
+mocapColor = 'r';
+colors     = ["#32a852"
+							"#3262a8"
+							"#a83248"
+							"#a88132"];
+lw = 1;
 
-plot_position      = false;
+plot_position      = true;
 plot_attitude      = true;
-plot_velocity      = false;
-plot_biases        = false;
+plot_velocity      = true;
+plot_biases        = true;
 plot_posError      = false;
 plot_imu           = true;
 plot_motors        = true;
