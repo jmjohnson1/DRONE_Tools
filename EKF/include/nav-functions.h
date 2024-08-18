@@ -23,7 +23,7 @@ All units meters and radians
 #pragma once
 
 #include <math.h>
-#include "eigen.h"
+#include <eigen3/Eigen/Dense>
 
 using namespace Eigen;
 

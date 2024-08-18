@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/build",
+  "command": "/usr/lib/ccache/c++  -I/home/james/Documents/Quadcopters/DRONE_Tools/EKF/include -std=gnu++20 -o CMakeFiles/runEKF.dir/apps/runEKF.cpp.o -c /home/james/Documents/Quadcopters/DRONE_Tools/EKF/apps/runEKF.cpp",
+  "file": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/apps/runEKF.cpp"
+},
+{
+  "directory": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/build/src",
+  "command": "/usr/lib/ccache/c++  -I/home/james/Documents/Quadcopters/DRONE_Tools/EKF/include -std=gnu++20 -o CMakeFiles/ekf.dir/EKF.cpp.o -c /home/james/Documents/Quadcopters/DRONE_Tools/EKF/src/EKF.cpp",
+  "file": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/src/EKF.cpp"
+},
+{
+  "directory": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/build/src",
+  "command": "/usr/lib/ccache/c++  -I/home/james/Documents/Quadcopters/DRONE_Tools/EKF/include -std=gnu++20 -o CMakeFiles/ekf.dir/nav-functions.cpp.o -c /home/james/Documents/Quadcopters/DRONE_Tools/EKF/src/nav-functions.cpp",
+  "file": "/home/james/Documents/Quadcopters/DRONE_Tools/EKF/src/nav-functions.cpp"
+}
+]

@@ -52,7 +52,6 @@ void EKF::Configure() {
   P_.block(12,12,3,3) = (wBiasSigma_Init_rps * wBiasSigma_Init_rps) * I3;
 
 
-
   H2_.setZero();
   H2_.block(0,0,5,5) = I5;
   R2_.setZero();
@@ -69,7 +68,6 @@ void EKF::Initialize(Vector3f wMeas_B_rps, Vector3f aMeas_B_mps2, Vector3d pMeas
   vEst_NED_mps_.setZero(); // Velocity in NED
 
   // Initialize sensor biases
-  //wBias_rps_ = wMeas_B_rps;
   wBias_rps_.setZero();
   aBias_mps2_.setZero();
 
