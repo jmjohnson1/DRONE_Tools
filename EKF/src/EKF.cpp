@@ -4,10 +4,7 @@ MIT License; See LICENSE.md for complete details
 Adapted for RAPTRS: Brian Taylor and Chris Regan
 
 Adapted from prior versions
-Copyright 2011 Regents of the University of Minnesota. All rights reserved.
-Original Author: Adhika Lie, Gokhan Inalhan, Demoz Gebre, Jung Soon Jang
-
-Reference Frames and Coordinates from nav-functions()
+Copyright 2011 Regents of the University of Minnesota. All rights reserved. Original Author: Adhika Lie, Gokhan Inalhan, Demoz Gebre, Jung Soon Jang Reference Frames and Coordinates from nav-functions()
 I - ECI (Earch Center Inertial): origin at Earth center
 E - ECEF (Earch Center Earth Fixed): origin at Earth center
 D - Geodetic: origin at Earth center, Uses earth ellisoid definition (example WGS84)

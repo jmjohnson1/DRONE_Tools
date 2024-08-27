@@ -1,2 +1,0 @@
-/usr/bin/ar qc libekf.a CMakeFiles/ekf.dir/EKF.cpp.o "CMakeFiles/ekf.dir/nav-functions.cpp.o"
-/usr/bin/ranlib libekf.a

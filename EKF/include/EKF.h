@@ -72,6 +72,8 @@ class EKF {
     inline Vector3f Get_CovAccelBias() { return P_.block(9,9,3,3).diagonal(); }
     inline Vector3f Get_CovRotRateBias() { return P_.block(12,12,3,3).diagonal(); }
 
+		inline Matrix<float, 15, 15> Get_CovFull() { return P_; }
+
     // Get Innovation
     inline Vector3f Get_InnovationPos() { return S_.block(0,0,3,3).diagonal(); }
     inline Vector3f Get_InnovationVel() { return S_.block(3,3,3,3).diagonal(); }

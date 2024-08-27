@@ -1,6 +1,7 @@
 add_library(ekf
 	EKF.cpp
 	nav-functions.cpp
+	readNavData.cpp
 )
 
 target_include_directories(ekf PUBLIC
