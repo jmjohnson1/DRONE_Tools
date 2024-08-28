@@ -43,7 +43,7 @@ NavData::NavDataType NavData::LoadDatafile(const std::string &path) {
     // System time
     navData.systemTime_us(row) = std::stoul(values[firstIdx + 9]);
     // Measurement sequence number
-    navData.measurementSequenceNumber(row) = std::stoul(values[firstIdx + 10]);
+    navData.measSeqNum(row) = std::stoul(values[firstIdx + 10]);
   }
 
   return navData;

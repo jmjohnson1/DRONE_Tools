@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "EKF.h"
 #include "eigencsv.h"
@@ -18,17 +18,17 @@ int main(int argc, char *argv[]) {
     std::cerr << "Missing path to data file" << std::endl;
     return 1;
   }
-	if (argc < 3) {
-		std::cerr << "Missing path to output directory" << std::endl;
-		return 1;
-	}
+  if (argc < 3) {
+    std::cerr << "Missing path to output directory" << std::endl;
+    return 1;
+  }
   std::string datafile = argv[1];
   std::cout << "Datafile path: " << datafile << std::endl;
-	std::string outDir = argv[2];
-	if (outDir.compare("/") != 0) {
-		outDir.push_back('/');
-	}
-	std::cout << "Output directory: " << outDir << std::endl;
+  std::string outDir = argv[2];
+  if (outDir.compare("/") != 0) {
+    outDir.push_back('/');
+  }
+  std::cout << "Output directory: " << outDir << std::endl;
 
   // Read from datafile
   NavData::NavDataType navData = NavData::LoadDatafile(datafile);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
   // Covariance estimate includes upper triangular portion of covariance matrix.
   // Mapping is row major
   Eigen::MatrixXf covarianceEstimate(navDataSize, 120);
-	std::vector<bool> measurementAvailable(navDataSize);
+  std::vector<bool> measurementAvailable(navDataSize);
 
   // Create EKF object. Configure will populate various matrices, so make sure
   // to set any noise parameters before calling.
@@ -53,24 +53,23 @@ int main(int argc, char *argv[]) {
                  navData.positionMeasurements.row(0).cast<double>());
 
   NavData::GetUpperTriangle(ekf.Get_CovFull(), covarianceEstimate.row(0));
-	stateEstimate.row(0) = ekf.Get_State();
-	measurementAvailable[0] = false;
+  stateEstimate.row(0) = ekf.Get_State();
+  measurementAvailable[0] = false;
 
   // Run through the full data set
   for (size_t i = 1; i < navDataSize; i++) {
-    ekf.Update(navData.systemTime_us(i), navData.measurementSequenceNumber(i),
-               navData.gyroData.row(i), navData.accelData.row(i),
-               navData.positionMeasurements.row(i).cast<double>());
-		stateEstimate.row(i) = ekf.Get_State();
-		NavData::GetUpperTriangle(ekf.Get_CovFull(), covarianceEstimate.row(i));
-		measurementAvailable[i] = navData.measurementSequenceNumber(i) > navData.measurementSequenceNumber(i - 1);
+    ekf.Update(navData.systemTime_us(i), navData.measSeqNum(i), navData.gyroData.row(i),
+               navData.accelData.row(i), navData.positionMeasurements.row(i).cast<double>());
+    stateEstimate.row(i) = ekf.Get_State();
+    NavData::GetUpperTriangle(ekf.Get_CovFull(), covarianceEstimate.row(i));
+    measurementAvailable[i] = navData.measSeqNum(i) > navData.measSeqNum(i - 1);
   }
 
-	// Print run data to CSV files
-	write_csv(outDir + "stateEstimate.csv", stateEstimate);
-	write_csv(outDir + "covariance.csv", covarianceEstimate);
-	write_csv(outDir + "systemTime_us.csv", navData.systemTime_us);
-	NavData::Vec2CSV(outDir + "measurementAvail.csv", measurementAvailable);
+  // Print run data to CSV files
+  write_csv(outDir + "stateEstimate.csv", stateEstimate);
+  write_csv(outDir + "covariance.csv", covarianceEstimate);
+  write_csv(outDir + "systemTime_us.csv", navData.systemTime_us);
+  NavData::Vec2CSV(outDir + "measurementAvail.csv", measurementAvailable);
 
   return 0;
 }

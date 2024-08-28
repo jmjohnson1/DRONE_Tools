@@ -13,14 +13,14 @@ typedef struct NavDataType {
   Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> gyroData;
   Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic> positionMeasurements;
   Eigen::Vector<uint64_t, Eigen::Dynamic> systemTime_us;
-  Eigen::Vector<uint64_t, Eigen::Dynamic> measurementSequenceNumber;
+  Eigen::Vector<uint64_t, Eigen::Dynamic> measSeqNum;
 
   NavDataType(const uint64_t numberDataPoints)
       : accelData(numberDataPoints, 3),
         gyroData(numberDataPoints, 3),
         positionMeasurements(numberDataPoints, 3),
         systemTime_us(numberDataPoints),
-        measurementSequenceNumber(numberDataPoints) {}
+        measSeqNum(numberDataPoints) {}
 } NavDataType;
 
 NavDataType LoadDatafile(const std::string& path);
