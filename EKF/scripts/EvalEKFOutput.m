@@ -1,4 +1,4 @@
-function EvalEKFOutput(ekfOutputDir, mocapDataFile)
+function EvalEKFOutput(ekfOutputDir, mocapDataFile, quadDataFile)
 	% TOOD: make docs
 
 	ekfOutputDir = char(ekfOutputDir);
@@ -14,6 +14,8 @@ function EvalEKFOutput(ekfOutputDir, mocapDataFile)
 	systemTime = readmatrix(fullpath([ekfOutputdir, 'systemTime_us.csv']));
 	measAvail = readmatrix(fullpath([ekfOutputDir, 'measurementAvail.csv']));
 
+  systemTime_s = systemTime*1e-6;
+
 	% Map the covariance to (15, 15, n)
 	covarianceEstimate = mapCovariance(covarianceFlat, 15); 
 
@@ -21,8 +23,38 @@ function EvalEKFOutput(ekfOutputDir, mocapDataFile)
 	mocapData = readtable(mocapDataFile);
 
 	% Time sync mocap + ekf
+  fd = readtable(quadDataFile);
+  offset = fd.quadTime - fd.timeSinceBoot(1) - fd.mocapTime;
+	offset = rmoutliers(offset);
+	offset = mean(offset);
+  minTime = systemTime(1)*1e-6;
+  maxTime = systemTime(end)*1e-6;
 
+  [mocapTime, mocapX, mocapY, mocapZ, mocapQ] = ...
+		processMocapRigid(mocapfile, 1, offset);
+	mocapPos = [mocapX, mocapY, mocapZ];
+	% Fix any non-unique points in the mocap times
+	[mocapTime, iu] = unique(mocapTime);
+	mocapPos = mocapPos(iu, :);
+	mocapQ = mocapQ(iu, :);
+	
+	mocap_idx = find(mocapTime >= minTime & mocapTime <= maxTime);
+	mocapTime_trunc = mocapTime(mocap_idx);
+	mocapPos_trunc = mocapPos(mocap_idx, :);
+	
+	% Interpolate mocap_pos to align it with estimates
+	mocapPos_trunc_xi = interp1(mocapTime_trunc, mocapPos_trunc(:,1), systemTime_s);
+	mocapPos_trunc_yi = interp1(mocapTime_trunc, mocapPos_trunc(:,2), systemTime_s);
+	mocapPos_trunc_zi = interp1(mocapTime_trunc, mocapPos_trunc(:,3), systemTime_s);
+	
 	% Compute position errors, RMSE, NIS, etc.
+  errorX = mocapPos_trunc_xi - stateEstimate(:, 1);
+	errorY = mocapPos_trunc_yi - stateEstimate(:, 2);
+	errorZ = mocapPos_trunc_zi - stateEstimate(:, 3);
+	
+	rmseX = rms(errorX, "omitnan");
+	rmseY = rms(errorY, "omitnan");
+	rmseZ = rms(errorZ, "omitnan");
 
 	% Plot pos, vel, att estimates
 
