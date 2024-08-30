@@ -17,7 +17,7 @@ template<typename Derived>
 void write_csv(std::string name, const Eigen::MatrixBase<Derived>& mat) {
 	std::ofstream file(name.c_str());
 	if (file.is_open()) {
-		file << mat << '\n';
+		file << mat.format(CSVFormat);
 	}
 	file.close();
 }
