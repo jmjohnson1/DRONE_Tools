@@ -23,7 +23,7 @@ All units meters and radians
 
 #include <stdint.h>
 #include <math.h>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 using namespace Eigen;
 
 #include "nav-functions.h"

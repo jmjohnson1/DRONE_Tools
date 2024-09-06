@@ -9,6 +9,6 @@ target_include_directories(ekf PUBLIC
 )
 
 target_link_libraries(ekf PRIVATE
-	${Eigen_LIBRARIES}
+	Eigen3::Eigen
 )
 

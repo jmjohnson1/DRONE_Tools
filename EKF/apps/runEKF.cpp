@@ -46,19 +46,19 @@ int main(int argc, char *argv[]) {
   // Create EKF object. Configure will populate various matrices, so make sure
   // to set any noise parameters before calling.
   EKF ekf;
-	ekf.Set_AccelSigma(Eigen::Vector3f(0.08f*3, 0.08f*3, 0.08f*3));
-	ekf.Set_RotRateSigma(Eigen::Vector3f(0.007f*4, 0.007f*4, 0.007f*4));
-	ekf.Set_AccelMarkov(Eigen::Vector3f(0.005f, 0.005f, 0.005f));
-	ekf.Set_RotRateMarkov(Eigen::Vector3f(0.0004f*2, 0.0004f*2, 0.0004f*2));
-	ekf.Set_AccelTau(Eigen::Vector3f(400, 400, 400));
-	ekf.Set_RotRateTau(Eigen::Vector3f(500, 500, 500));
-
-	/*ekf.Set_AccelSigma(Eigen::Vector3f(0.03f, 0.03f, 0.05f));*/
-	/*ekf.Set_RotRateSigma(Eigen::Vector3f(0.0014f, 0.0015f, 0.0014f));*/
-	/*ekf.Set_AccelMarkov(Eigen::Vector3f(0.009f/2.0, 0.009f/2.0, 0.009f/2.0));*/
-	/*ekf.Set_RotRateMarkov(Eigen::Vector3f(0.0004f, 0.0004f, 0.0004f));*/
+	/*ekf.Set_AccelSigma(Eigen::Vector3f(0.08f*3, 0.08f*3, 0.08f*3));*/
+	/*ekf.Set_RotRateSigma(Eigen::Vector3f(0.007f*4, 0.007f*4, 0.007f*4));*/
+	/*ekf.Set_AccelMarkov(Eigen::Vector3f(0.005f, 0.005f, 0.005f));*/
+	/*ekf.Set_RotRateMarkov(Eigen::Vector3f(0.0004f*2, 0.0004f*2, 0.0004f*2));*/
 	/*ekf.Set_AccelTau(Eigen::Vector3f(400, 400, 400));*/
-	/*ekf.Set_RotRateTau(Eigen::Vector3f(300, 300, 300));*/
+	/*ekf.Set_RotRateTau(Eigen::Vector3f(500, 500, 500));*/
+
+	ekf.Set_AccelSigma(Eigen::Vector3f(0.04f, 0.03f, 0.05f));
+	ekf.Set_RotRateSigma(Eigen::Vector3f(0.0016f, 0.0015f, 0.0014f));
+	ekf.Set_AccelMarkov(Eigen::Vector3f(0.009f*2.0, 0.009f*2.0, 0.009f*2.0));
+	ekf.Set_RotRateMarkov(Eigen::Vector3f(0.0004f, 0.0004f, 0.0004f));
+	ekf.Set_AccelTau(Eigen::Vector3f(400, 400, 400));
+	ekf.Set_RotRateTau(Eigen::Vector3f(300, 300, 300));
 
 	/*ekf.Set_PosSigmaD(0.03);*/
 	/*ekf.Set_PosSigmaNE(0.02);*/
@@ -67,8 +67,10 @@ int main(int argc, char *argv[]) {
 	ekf.Set_PosSigmaNE(0.05);
 
 	ekf.Set_InitOrientSigma(M_PI/12.0f);
-	ekf.Set_InitAccelBiasSigma(0.02f);
-	ekf.Set_InitRotRateBiasSigma(0.01f);
+	/*ekf.Set_InitAccelBiasSigma(0.02f);*/
+	/*ekf.Set_InitRotRateBiasSigma(0.01f);*/
+	ekf.Set_InitAccelBiasSigma(0.5f);
+	ekf.Set_InitRotRateBiasSigma(0.001f);
 	ekf.Configure();
 
 

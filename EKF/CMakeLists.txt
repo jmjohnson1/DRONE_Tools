@@ -12,10 +12,8 @@ add_compile_options(
 	"$<$<CONFIG:DEBUG>:-DDEBUG>"
 )
 
-
 # Eigen needs to be installed on the system
-find_package(Eigen3 REQUIRED)
-link_directories(${Eigen_INCLUDE_DIRS})
+find_package(Eigen3 REQUIRED NO_MODULE)
 
 add_subdirectory(lib)
 # Include directory that builds EKF library
@@ -28,6 +26,6 @@ add_executable(runEKF
 target_link_libraries(runEKF PRIVATE
 	ekf
 	eigencsv
-	${Eigen_LIBRARIES}
+	Eigen3::Eigen
 )
 

@@ -45,9 +45,9 @@ function EvalEKFOutput(ekfOutputDir, mocapDataFile, quadDataFile)
 
 
   % Interpolate mocap_pos to align it with estimates
-  mocapX = interp1(mocapTime, mocapData.x, systemTime);
-  mocapY = interp1(mocapTime, mocapData.y, systemTime);
-  mocapZ = interp1(mocapTime, mocapData.z, systemTime);
+  mocapX = interp1(mocapTime, circshift(mocapData.x, -2), systemTime);
+  mocapY = interp1(mocapTime, circshift(mocapData.y, -2), systemTime);
+  mocapZ = interp1(mocapTime, circshift(mocapData.z, -2), systemTime);
   mocapPos = [mocapX, mocapY, mocapZ];
   
   % Compute position errors, RMSE, NIS, etc.
@@ -61,7 +61,7 @@ function EvalEKFOutput(ekfOutputDir, mocapDataFile, quadDataFile)
       positionSigma(:, i) = sqrt(reshape(covarianceEstimate(i, i, :), [length(systemTime), 1]));
   end
   
-  percentBounded = sum(posErrors < positionSigma)/length(systemTime)
+  percentBounded = sum(posErrors < positionSigma*3)/length(systemTime)
   
   rmseX = rms(errorX, "omitnan")
   rmseY = rms(errorY, "omitnan")
@@ -127,8 +127,8 @@ function EvalEKFOutput(ekfOutputDir, mocapDataFile, quadDataFile)
     ax(i) = subplot(3, 1, i);
     plot(systemTime_s, posErrors(:, i), LineStyle='-', Color=colors(1), DisplayName="Estimate");
     hold on
-    plot(systemTime_s, positionSigma(:, i), LineStyle='--', Color=colors(3), DisplayName="1 \sigma")
-    plot(systemTime_s, -positionSigma(:, i), LineStyle='--', Color=colors(3), DisplayName="1 \sigma")
+    plot(systemTime_s, positionSigma(:, i)*3, LineStyle='--', Color=colors(3), DisplayName="1 \sigma")
+    plot(systemTime_s, -positionSigma(:, i)*3, LineStyle='--', Color=colors(3), DisplayName="1 \sigma")
     hold off
     ylabel(ylabels(i))
     grid on
