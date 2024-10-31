@@ -4,8 +4,8 @@ clear; close all;
 %============
 
 % Filenames that contain flight data and motion capture system logs
-quadfile  = "/media/james/Flash/Changes/flight_data13.csv";
-mocapfile = "/media/james/Flash/Changes/mocap_rectPrism.csv";
+quadfile  = "/Volumes/NO NAME/flight_data55.csv";
+mocapfile = "";
 
 % You can use this to select a subset of the flight time
 minTime = 0;  % [s]
