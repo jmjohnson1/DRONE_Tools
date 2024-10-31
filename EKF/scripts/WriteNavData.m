@@ -1,11 +1,11 @@
-function WriteNavData(inputPath, outputDir, imuType)
+function WriteNavData(inputFile, outputFile, imuType)
 	arguments
-		inputPath char
-		outputDir char
+		inputFile char
+		outputFile char
 		imuType char = 'mpu6050';
 	end
 
-	dataTable = readtable(inputPath);	
+	dataTable = readtable(inputFile);	
 	systemTime_us = dataTable.timeSinceBoot - dataTable.timeSinceBoot(1);
 	mocapSequenceNumber = dataTable.numMocapUpdates;
 	if strcmp(imuType, 'mpu6050') 
@@ -20,7 +20,7 @@ function WriteNavData(inputPath, outputDir, imuType)
 	mocapPositions = [dataTable.mocapPositionNED_0, dataTable.mocapPositionNED_1, dataTable.mocapPositionNED_2];
 
 	% Write to CSV file
-	writematrix([accel, gyro, mocapPositions, systemTime_us, mocapSequenceNumber], outputDir)
+	writematrix([accel, gyro, mocapPositions, systemTime_us, mocapSequenceNumber], outputFile)
 
 	% Plot of each set of values
 	figure(Name="IMU")
